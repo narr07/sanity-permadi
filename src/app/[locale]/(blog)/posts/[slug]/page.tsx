@@ -2,10 +2,18 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { GetServerSideProps } from 'next';
 
 import { POST_QUERY } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/live";
 import { Post } from "@/components/Post";
+
+interface PageProps {
+  params: {
+    locale: string;
+    slug: string;
+  };
+}
 
 export async function generateMetadata({ params }: { params: { locale: string, slug: string } }): Promise<Metadata> {
   const { data: post } = await sanityFetch({
@@ -44,6 +52,29 @@ export async function generateMetadata({ params }: { params: { locale: string, s
     },
   };
 }
+
+export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
+  const { locale, slug } = context.params as { locale: string; slug: string };
+  const { data: post } = await sanityFetch({
+    query: POST_QUERY,
+    params: { slug, language: locale },
+  });
+
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      params: {
+        locale,
+        slug,
+      },
+    },
+  };
+};
 
 export default async function PostPage({ params }: { params: { locale: string, slug: string } }) {
   const { data: post } = await sanityFetch({
