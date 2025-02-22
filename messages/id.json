@@ -1,0 +1,11 @@
+
+{
+  "HomePage": {
+    "title": "Selamat datang di situs web saya",
+    "description": "Ini adalah halaman utama"
+  },
+    "LocaleSwitcher": {
+      "label": "Ganti bahasa",
+      "locale": "{locale, select, id {🇩🇪 Indonesia} en {🇺🇸 Inggris} other {Tidak diketahui}}"
+    }
+}

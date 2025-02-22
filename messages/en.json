@@ -1,0 +1,11 @@
+
+{
+  "HomePage": {
+    "title": "Welcome to my website",
+    "description": "This is the homepage"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, de {🇩🇪 Deutsch} en {🇺🇸 English} other {Unknown}}"
+  }
+}
